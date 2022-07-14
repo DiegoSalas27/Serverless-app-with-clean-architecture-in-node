@@ -15,7 +15,7 @@ describe('AccountMongo repository', () => {
     await MongoHelper.disconnect()
   })
   beforeEach(async () => {
-    userCollection = MongoHelper.getCollection('users')
+    userCollection = await MongoHelper.getCollection('users')
     await userCollection.deleteMany({}) // delete objects in memory so that tests don't overlap
   })
 

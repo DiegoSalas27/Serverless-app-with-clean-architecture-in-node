@@ -1,3 +1,4 @@
+import env from '@main/config/env'
 import { Collection, MongoClient } from 'mongodb'
 
 export const transactionOptions = {
@@ -17,8 +18,13 @@ export class MongoHelper {
     await this.client.close()
   }
 
-  static getCollection<T>(name: string): Collection<T> {
-    return this.client.db().collection(name)
+  static async getCollection<T>(name: string): Promise<Collection<T>> {
+    if (this.client !== null) {
+      return this.client.db().collection(name)
+    } else {
+      this.client = await MongoClient.connect(env.mongoUrl)
+      return this.client.db().collection(name)
+    }
   }
 
   static map(document: any): any {

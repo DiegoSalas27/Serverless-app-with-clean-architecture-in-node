@@ -1,5 +1,4 @@
-import { IAddAccountRepository } from '@data/protocols/db/account/add-account-repository'
-import { ILoadAccountByEmailRepository } from '@data/protocols/db/account/load-account-by-email-repository'
+import { ILoadAccountByEmailRepository, IAddAccountRepository } from '@data/protocols/db/account'
 import { IAddAccount, AddAccountParams } from '@domain/usecases/account'
 
 export class DbAddAccount implements IAddAccount {

@@ -1,5 +1,4 @@
-import { IAddAccountRepository } from '@data/protocols/db/account/add-account-repository'
-import { ILoadAccountByEmailRepository } from '@data/protocols/db/account/load-account-by-email-repository'
+import { IAddAccountRepository, ILoadAccountByEmailRepository } from '@data/protocols/db/account'
 import { User } from '@domain/models'
 import { mockAccountModel } from '@domain/test/mock-account'
 import { AddAccountParams } from '@domain/usecases/account'
