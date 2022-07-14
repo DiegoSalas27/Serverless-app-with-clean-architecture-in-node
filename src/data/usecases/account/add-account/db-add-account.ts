@@ -6,6 +6,10 @@ export class DbAddAccount implements IAddAccount {
 
   async add(accountParams: AddAccountParams): Promise<string> {
     const account = await this.loadAccountByEmailRepository.loadByEmail(accountParams.email)
-    return account.email
+    if (!account) {
+      return ''
+    }
+
+    return null
   }
 }
