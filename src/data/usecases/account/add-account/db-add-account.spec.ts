@@ -1,6 +1,6 @@
-import { throwError } from '../../../../domain/test/helpers'
-import { mockAccountModel, mockAddAccountParams } from '../../../../domain/test/mock-account'
-import { AddAccountRepositorySpy, LoadAccountByEmailRepositorySpy } from '../../../test/mock-db-account'
+import { LoadAccountByEmailRepositorySpy, AddAccountRepositorySpy } from '@data/test/mock-db-account'
+import { throwError } from '@domain/test/helpers'
+import { mockAddAccountParams, mockAccountModel } from '@domain/test/mock-account'
 import { DbAddAccount } from './db-add-account'
 
 type SutTypes = {

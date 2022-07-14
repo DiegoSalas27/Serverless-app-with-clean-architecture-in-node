@@ -1,4 +1,4 @@
-import { IAddAccount } from '../../../../domain/usecases/account'
+import { IAddAccount } from '@domain/usecases/account'
 
 export interface ILoadAccountByEmailRepository {
   loadByEmail(email: string): Promise<ILoadAccountByEmailRepository.Result>
