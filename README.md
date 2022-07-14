@@ -19,7 +19,7 @@ The application allows the user to create accounts with unique email addresses.
 
 ## How to run it
 
-install all the dependencies for the project locally and the serverless CLI globally via NPM: npm install -g serverless. As long as you have an instace of a mongodb server running, you will be able to run the application.
+Install all the dependencies for the project locally and the serverless CLI globally via NPM: npm install -g serverless. As long as you have an instace of a mongodb server running, you will be able to run the application.
 To run the application, use the following commands: serverless offline (using serverless architecture) or npm start (using the monolothic architecture)
 
 
