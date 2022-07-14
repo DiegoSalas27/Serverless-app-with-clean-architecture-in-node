@@ -2,7 +2,7 @@ import { throwError } from '@domain/test'
 import faker from '@faker-js/faker'
 import { EmailInUseError } from '@presentation/errors/email-in-use-error'
 import { ServerError } from '@presentation/errors/server-error'
-import { forbidden, serverError } from '@presentation/helpers/http-helper'
+import { forbidden, ok, serverError } from '@presentation/helpers/http-helper'
 import { HttpRequest } from '@presentation/protocols'
 import { AddAccountSpy } from '@presentation/test/mock-account'
 import { SignUpController } from './signup-controller'
@@ -56,5 +56,11 @@ describe('SignUp Controller', () => {
     addAccountSpy.accountId = null
     const httpResponse = await sut.handle(mockRequest())
     expect(httpResponse).toEqual(forbidden(new EmailInUseError()))
+  })
+
+  test('Should return 200 if valid data is provided', async () => {
+    const { sut, addAccountSpy } = makeSut()
+    const httpResponse = await sut.handle(mockRequest())
+    expect(httpResponse).toEqual(ok(addAccountSpy.accountId))
   })
 })
