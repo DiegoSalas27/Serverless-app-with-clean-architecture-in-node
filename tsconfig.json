@@ -1,9 +1,20 @@
 {
   "compilerOptions": {
-    "outDir": "./dist",
-    "module": "commonjs",
-    "target": "es2019",
+    "outDir": ".build",
+    "moduleResolution": "node",
+    "target": "es5",
     "esModuleInterop": true,
-    "allowJs": true
+    "allowJs": true,
+    "lib": ["es2015"],
+    "baseUrl": "src",
+    "paths": {
+      "@data/*": ["api/data/*"],
+      "@infrastructure/*": ["api/infrastructure/*"],
+      "@domain/*": ["api/domain/*"],
+      "@presentation/*": ["api/presentation/*"],
+      "@main/*": ["api/main/*"]
+    },
+    "sourceMap": true,
+    "rootDir": "./"
   }
 }

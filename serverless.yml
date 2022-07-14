@@ -1,0 +1,23 @@
+service: user-management-service
+
+plugins:
+  - serverless-plugin-typescript
+  - serverless-offline
+
+provider:
+  name: aws 
+  runtime: nodejs12.x
+  memorySize: 1024
+  stage: ${opt:stage, 'dev'}
+  region: ${opt:region, 'us-east-1'}
+
+functions:
+  signup:
+    name: user-management-signup-${self:provider.stage}
+    handler: src/handlers/account/index.handler
+    events:
+      - http:
+          path: /signup
+          method: POST
+          cors: true
+          
