@@ -7,17 +7,16 @@ import { AccountMongoRepository } from './account-mongo-repository'
 let userCollection: Collection<User>
 
 describe('AccountMongo repository', () => {
+  // This is an integration test
   beforeAll(async () => {
     await MongoHelper.connect(process.env.MONGO_URL)
   })
-
   afterAll(async () => {
     await MongoHelper.disconnect()
   })
-
   beforeEach(async () => {
     userCollection = MongoHelper.getCollection('users')
-    await userCollection.deleteMany({})
+    await userCollection.deleteMany({}) // delete objects in memory so that tests don't overlap
   })
 
   const makeSut = (): AccountMongoRepository => {
@@ -42,6 +41,20 @@ describe('AccountMongo repository', () => {
         firstName: user.firstName,
         lastName: user.lastName
       })
+    })
+  })
+
+  describe('loadByEmail()', () => {
+    test('Should return an account on loadByEmail success', async () => {
+      const sut = makeSut()
+      const user = mockAddAccountParams() as User
+      await userCollection.insertOne(user)
+      const account = await sut.loadByEmail(user.email)
+      expect(account).toBeTruthy()
+      expect(account.id).toBeTruthy()
+      expect(account.firstName).toBe(user.firstName)
+      expect(account.email).toBe(user.email)
+      expect(account.lastName).toBe(user.lastName)
     })
   })
 })

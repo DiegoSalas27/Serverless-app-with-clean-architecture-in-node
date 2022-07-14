@@ -10,6 +10,7 @@
     "@typescript-eslint/method-signature-style": "off",
     "@typescript-eslint/no-namespace": "off",
     "@typescript-eslint/no-extraneous-class": "off",
+    "@typescript-eslint/no-misused-promises": "off",
     "eol-last": "off"
   }
 }
