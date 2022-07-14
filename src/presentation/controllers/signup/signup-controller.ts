@@ -1,6 +1,6 @@
 import { IAddAccount } from '@domain/usecases/account'
 import { EmailInUseError } from '@presentation/errors/email-in-use-error'
-import { forbidden, serverError } from '@presentation/helpers/http-helper'
+import { forbidden, ok, serverError } from '@presentation/helpers/http-helper'
 import { Controller, HttpRequest, HttpResponse } from '@presentation/protocols'
 
 export class SignUpController implements Controller {
@@ -8,12 +8,12 @@ export class SignUpController implements Controller {
 
   async handle(httpRequest: HttpRequest): Promise<HttpResponse> {
     try {
-      const account = await this.addAccount.add(httpRequest.body)
-      if (!account) {
+      const accountId = await this.addAccount.add(httpRequest.body)
+      if (!accountId) {
         return forbidden(new EmailInUseError())
       }
 
-      return null
+      return ok(accountId)
     } catch (error) {
       return serverError(error)
     }
