@@ -12,6 +12,9 @@
       "@domain/*": ["domain/*"],
       "@presentation/*": ["presentation/*"],
       "@main/*": ["main/*"]
-    }
-  }
+    },
+    "sourceMap": true,
+    "rootDir": "src"
+  },
+  "include": ["src"]
 }
