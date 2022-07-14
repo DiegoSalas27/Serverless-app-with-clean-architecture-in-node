@@ -55,4 +55,10 @@ describe('DbAddAccount Usecase', () => {
     const promise = sut.add(mockAddAccountParams())
     await expect(promise).rejects.toThrow()
   })
+
+  test('Should return accountId on success', async () => {
+    const { addAccountRepositorySpy, sut } = makeSut()
+    const response = await sut.add(mockAddAccountParams())
+    expect(response).toBe(addAccountRepositorySpy.accountId)
+  })
 })
