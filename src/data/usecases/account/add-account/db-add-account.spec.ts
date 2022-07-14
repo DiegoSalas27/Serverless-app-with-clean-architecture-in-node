@@ -1,19 +1,23 @@
-import { mockAddAccountParams } from '../../../../domain/test/mock-account'
-import { LoadAccountByEmailRepositorySpy } from '../../../test/mock-db-account'
+import { mockAccountModel, mockAddAccountParams } from '../../../../domain/test/mock-account'
+import { AddAccountRepositorySpy, LoadAccountByEmailRepositorySpy } from '../../../test/mock-db-account'
 import { DbAddAccount } from './db-add-account'
 
 type SutTypes = {
   sut: DbAddAccount
   loadAccountByEmailRepositorySpy: LoadAccountByEmailRepositorySpy
+  addAccountRepositorySpy: AddAccountRepositorySpy
 }
 
 const makeSut = (): SutTypes => {
   const loadAccountByEmailRepositorySpy = new LoadAccountByEmailRepositorySpy()
-  const sut = new DbAddAccount(loadAccountByEmailRepositorySpy)
+  loadAccountByEmailRepositorySpy.accountModel = null
+  const addAccountRepositorySpy = new AddAccountRepositorySpy()
+  const sut = new DbAddAccount(loadAccountByEmailRepositorySpy, addAccountRepositorySpy)
 
   return {
     sut,
-    loadAccountByEmailRepositorySpy
+    loadAccountByEmailRepositorySpy,
+    addAccountRepositorySpy
   }
 }
 
@@ -26,8 +30,21 @@ describe('DbAddAccount Usecase', () => {
   })
 
   test("Should return null if LoadAccountByEmailRepository doesn't return null", async () => {
-    const { sut } = makeSut()
+    const { loadAccountByEmailRepositorySpy, sut } = makeSut()
+    loadAccountByEmailRepositorySpy.accountModel = mockAccountModel()
     const accountId = await sut.add(mockAddAccountParams())
     expect(accountId).toBeNull()
+  })
+
+  test('Should call AddAccountRepository with correct values', async () => {
+    const { addAccountRepositorySpy, sut } = makeSut()
+    const addAccountParams = mockAddAccountParams()
+    await sut.add(addAccountParams)
+
+    expect(addAccountRepositorySpy.accountParams).toEqual({
+      email: addAccountParams.email,
+      firstName: addAccountParams.firstName,
+      lastName: addAccountParams.lastName
+    })
   })
 })
