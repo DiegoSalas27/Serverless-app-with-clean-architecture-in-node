@@ -1,12 +1,12 @@
-import { mockAccountModel } from '@domain/test'
 import { AddAccountParams, IAddAccount } from '@domain/usecases/account'
+import faker from '@faker-js/faker'
 
 export class AddAccountSpy implements IAddAccount {
-  accountModel = mockAccountModel()
+  accountId = faker.datatype.uuid()
   addAccountParams: AddAccountParams
 
   async add(account: AddAccountParams): Promise<string> {
     this.addAccountParams = account
-    return this.accountModel.id
+    return this.accountId
   }
 }

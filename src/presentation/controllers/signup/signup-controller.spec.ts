@@ -1,7 +1,8 @@
 import { throwError } from '@domain/test'
 import faker from '@faker-js/faker'
+import { EmailInUseError } from '@presentation/errors/email-in-use-error'
 import { ServerError } from '@presentation/errors/server-error'
-import { serverError } from '@presentation/helpers/http-helper'
+import { forbidden, serverError } from '@presentation/helpers/http-helper'
 import { HttpRequest } from '@presentation/protocols'
 import { AddAccountSpy } from '@presentation/test/mock-account'
 import { SignUpController } from './signup-controller'
@@ -48,5 +49,12 @@ describe('SignUp Controller', () => {
     jest.spyOn(addAccountSpy, 'add').mockImplementationOnce(throwError)
     const httpResponse = await sut.handle(mockRequest())
     expect(httpResponse).toEqual(serverError(new ServerError(null)))
+  })
+
+  test('Should return 403 if AddAccount returns null', async () => {
+    const { addAccountSpy, sut } = makeSut()
+    addAccountSpy.accountId = null
+    const httpResponse = await sut.handle(mockRequest())
+    expect(httpResponse).toEqual(forbidden(new EmailInUseError()))
   })
 })
