@@ -10,6 +10,7 @@
       "@data/*": ["data/*"],
       "@infrastructure/*": ["infrastructure/*"],
       "@domain/*": ["domain/*"],
+      "@presentation/*": ["presentation/*"]
     }
   }
 }
