@@ -1,3 +1,4 @@
+import { throwError } from '../../../../domain/test/helpers'
 import { mockAccountModel, mockAddAccountParams } from '../../../../domain/test/mock-account'
 import { AddAccountRepositorySpy, LoadAccountByEmailRepositorySpy } from '../../../test/mock-db-account'
 import { DbAddAccount } from './db-add-account'
@@ -46,5 +47,12 @@ describe('DbAddAccount Usecase', () => {
       firstName: addAccountParams.firstName,
       lastName: addAccountParams.lastName
     })
+  })
+
+  test('Should throw if AddAccountRepository throws', async () => {
+    const { addAccountRepositorySpy, sut } = makeSut()
+    jest.spyOn(addAccountRepositorySpy, 'add').mockImplementation(throwError)
+    const promise = sut.add(mockAddAccountParams())
+    await expect(promise).rejects.toThrow()
   })
 })
