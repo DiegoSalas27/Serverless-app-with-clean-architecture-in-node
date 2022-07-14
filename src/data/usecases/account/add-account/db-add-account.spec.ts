@@ -24,4 +24,10 @@ describe('DbAddAccount Usecase', () => {
     await sut.add(addAccountParams)
     expect(loadAccountByEmailRepositorySpy.email).toBe(addAccountParams.email)
   })
+
+  test("Should return null if LoadAccountByEmailRepository doesn't return null", async () => {
+    const { sut } = makeSut()
+    const accountId = await sut.add(mockAddAccountParams())
+    expect(accountId).toBeNull()
+  })
 })
