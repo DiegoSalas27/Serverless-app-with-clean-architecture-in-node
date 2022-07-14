@@ -1,6 +1,6 @@
 import { User } from '@domain/models'
 import { mockAddAccountParams } from '@domain/test'
-import { Collection } from 'mongodb'
+import { Collection, ObjectId } from 'mongodb'
 import { MongoHelper } from '../helpers'
 import { AccountMongoRepository } from './account-mongo-repository'
 
@@ -34,9 +34,14 @@ describe('AccountMongo repository', () => {
         email: user.email
       })
 
-      expect(foundUser).toBeTruthy()
       expect(accountId).toBeTruthy()
       expect(typeof accountId).toBe('string')
+      expect(foundUser).toEqual({
+        _id: new ObjectId(accountId),
+        email: user.email,
+        firstName: user.firstName,
+        lastName: user.lastName
+      })
     })
   })
 })
