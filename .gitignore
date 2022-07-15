@@ -4,3 +4,4 @@ dist
 .build
 globalConfig.json
 .env.*
+.serverless
