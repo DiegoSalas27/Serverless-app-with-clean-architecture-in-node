@@ -1,4 +1,4 @@
-# Serverless app with clean architecture in node
+# Serverless app with clean architecture and TDD in node
 
 This is a basic boilerplate that integrates a RESTful API in Nodejs using clean architecture with the serverless framework.
 The code has been separated into branches, such that the transition from a monolithic architecture to a serverless architecture is clear.
